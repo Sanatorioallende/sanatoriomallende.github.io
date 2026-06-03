@@ -1,93 +1,146 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Validación de Asistencia</title>
+<title>Portal de Validación - Sanatorio Allende</title>
 
 <style>
-body{
-font-family: Arial, sans-serif;
-background:#f4f6f9;
-text-align:center;
-padding:30px;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
 }
 
-.contenedor{
+body{
+background:#f3f7fb;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.card{
+width:100%;
+max-width:550px;
 background:white;
-max-width:500px;
-margin:auto;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.header{
+background:#4c86bd;
 padding:30px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,.1);
+text-align:center;
+}
+
+.header img{
+max-width:250px;
+width:100%;
+}
+
+.contenido{
+padding:35px;
 }
 
 h1{
-color:#005baa;
+text-align:center;
+color:#1f3d5c;
+margin-bottom:10px;
+}
+
+.sub{
+text-align:center;
+color:#666;
+margin-bottom:25px;
 }
 
 input{
-width:90%;
-padding:12px;
-font-size:18px;
-margin-top:10px;
-}
-
-button{
-margin-top:15px;
-padding:12px 25px;
-background:#005baa;
-color:white;
-border:none;
-border-radius:8px;
-font-size:18px;
-cursor:pointer;
-}
-
-button:hover{
-background:#004080;
-}
-
-.resultado{
-margin-top:25px;
+width:100%;
 padding:15px;
+border:1px solid #ccc;
 border-radius:10px;
 font-size:18px;
 }
 
+button{
+width:100%;
+margin-top:15px;
+padding:15px;
+border:none;
+background:#4c86bd;
+color:white;
+font-size:18px;
+border-radius:10px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
+}
+
 .ok{
-background:#d4edda;
-color:#155724;
+background:#e8f8ec;
+border-left:6px solid #28a745;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
 }
 
 .error{
-background:#f8d7da;
-color:#721c24;
+background:#fdeaea;
+border-left:6px solid #dc3545;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+}
+
+.ok h2{
+color:#28a745;
+}
+
+.error h2{
+color:#dc3545;
 }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+<div class="card">
 
-<h1>VALIDACIÓN DE ASISTENCIA</h1>
+<div class="header">
+<img src="logo.jpg">
+</div>
 
-<p>Ingrese DNI del paciente</p>
+<div class="contenido">
 
-<input type="text" id="dni" placeholder="DNI">
+<h1>Portal de Validación</h1>
 
-<br>
+<p class="sub">
+Verificación de asistencia en Guardia
+</p>
 
-<button onclick="buscar()">Validar</button>
+<input type="text" id="dni" placeholder="Ingrese DNI">
+
+<button onclick="buscar()">
+Validar Asistencia
+</button>
 
 <div id="resultado"></div>
+
+</div>
 
 </div>
 
 <script>
 
 const pacientes = [
+
 {
 dni:"30123456",
 nombre:"Juan Perez",
@@ -95,6 +148,7 @@ fecha:"02/06/2026",
 hora:"14:35",
 sector:"Guardia"
 },
+
 {
 dni:"28987654",
 nombre:"Maria Gomez",
@@ -102,35 +156,51 @@ fecha:"02/06/2026",
 hora:"10:20",
 sector:"Guardia"
 }
+
 ];
 
 function buscar(){
 
-let dni=document.getElementById("dni").value.trim();
+const dni=document.getElementById("dni").value.trim();
 
-let paciente=pacientes.find(p=>p.dni===dni);
+const paciente=pacientes.find(
+p=>p.dni===dni
+);
 
 if(paciente){
 
-document.getElementById("resultado").innerHTML=
-`
-<div class="resultado ok">
-<h2>✅ ASISTIÓ</h2>
-<p><b>Nombre:</b> ${paciente.nombre}</p>
+document.getElementById("resultado").innerHTML=`
+
+<div class="ok">
+
+<h2>✓ ASISTENCIA CONFIRMADA</h2>
+
+<br>
+
+<p><b>Paciente:</b> ${paciente.nombre}</p>
+
 <p><b>DNI:</b> ${paciente.dni}</p>
+
 <p><b>Fecha:</b> ${paciente.fecha}</p>
+
 <p><b>Hora:</b> ${paciente.hora}</p>
+
 <p><b>Sector:</b> ${paciente.sector}</p>
+
 </div>
+
 `;
 
 }else{
 
-document.getElementById("resultado").innerHTML=
-`
-<div class="resultado error">
-<h2>❌ NO SE ENCONTRARON REGISTROS</h2>
+document.getElementById("resultado").innerHTML=`
+
+<div class="error">
+
+<h2>✗ NO SE ENCONTRARON REGISTROS</h2>
+
 </div>
+
 `;
 
 }
@@ -141,3 +211,4 @@ document.getElementById("resultado").innerHTML=
 
 </body>
 </html>
+```
