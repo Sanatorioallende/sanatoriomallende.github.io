@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validación de Asistencia</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f9;
+text-align:center;
+padding:30px;
+}
+
+.contenedor{
+background:white;
+max-width:500px;
+margin:auto;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+h1{
+color:#005baa;
+}
+
+input{
+width:90%;
+padding:12px;
+font-size:18px;
+margin-top:10px;
+}
+
+button{
+margin-top:15px;
+padding:12px 25px;
+background:#005baa;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#004080;
+}
+
+.resultado{
+margin-top:25px;
+padding:15px;
+border-radius:10px;
+font-size:18px;
+}
+
+.ok{
+background:#d4edda;
+color:#155724;
+}
+
+.error{
+background:#f8d7da;
+color:#721c24;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h1>VALIDACIÓN DE ASISTENCIA</h1>
+
+<p>Ingrese DNI del paciente</p>
+
+<input type="text" id="dni" placeholder="DNI">
+
+<br>
+
+<button onclick="buscar()">Validar</button>
+
+<div id="resultado"></div>
+
+</div>
+
+<script>
+
+const pacientes = [
+{
+dni:"30123456",
+nombre:"Juan Perez",
+fecha:"02/06/2026",
+hora:"14:35",
+sector:"Guardia"
+},
+{
+dni:"28987654",
+nombre:"Maria Gomez",
+fecha:"02/06/2026",
+hora:"10:20",
+sector:"Guardia"
+}
+];
+
+function buscar(){
+
+let dni=document.getElementById("dni").value.trim();
+
+let paciente=pacientes.find(p=>p.dni===dni);
+
+if(paciente){
+
+document.getElementById("resultado").innerHTML=
+`
+<div class="resultado ok">
+<h2>✅ ASISTIÓ</h2>
+<p><b>Nombre:</b> ${paciente.nombre}</p>
+<p><b>DNI:</b> ${paciente.dni}</p>
+<p><b>Fecha:</b> ${paciente.fecha}</p>
+<p><b>Hora:</b> ${paciente.hora}</p>
+<p><b>Sector:</b> ${paciente.sector}</p>
+</div>
+`;
+
+}else{
+
+document.getElementById("resultado").innerHTML=
+`
+<div class="resultado error">
+<h2>❌ NO SE ENCONTRARON REGISTROS</h2>
+</div>
+`;
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
