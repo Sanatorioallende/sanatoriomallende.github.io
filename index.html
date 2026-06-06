@@ -241,8 +241,7 @@ hora,
 sector
 ){
 
-const ventana =
-window.open('', '_blank');
+const ventana = window.open('', '_blank');
 
 ventana.document.write(`
 
@@ -267,6 +266,7 @@ color:#2e6ea9;
 border:1px solid #ccc;
 padding:30px;
 border-radius:10px;
+margin-top:20px;
 }
 
 </style>
@@ -280,9 +280,13 @@ border-radius:10px;
 <h1>SANATORIO ALLENDE</h1>
 
 <h2>CONSTANCIA DE ATENCIÓN EN GUARDIA CENTRAL</h2>
+
+<div class="caja">
+
 <p>
 La presente acredita la atención registrada en el sistema de validación del Sanatorio Allende.
 </p>
+
 <p>
 Se deja constancia que:
 </p>
@@ -296,7 +300,7 @@ DNI: ${dni}
 </p>
 
 <p>
-Asistió a Guardia Central.
+Asistió a ${sector}.
 </p>
 
 <p>
@@ -312,14 +316,11 @@ Código:
 VAL-${dni}-${fecha.replaceAll('/','')}
 </p>
 
-<br>
-
-
 </div>
 
-<scr` + `ipt>
+<script>
 window.print();
-</scr` + `ipt>
+</script>
 
 </body>
 
@@ -327,10 +328,6 @@ window.print();
 
 `);
 
+ventana.document.close();
+
 }
-
-</script>
-
-</body>
-</html>
-
