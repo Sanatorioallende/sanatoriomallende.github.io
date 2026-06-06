@@ -175,34 +175,27 @@ sector:"Guardia Central"
 
 function buscar(){
 
-const dni =
-document.getElementById("dni").value.trim();
+const dni = document.getElementById("dni").value.trim();
 
-const paciente =
-pacientes.find(
-p => p.dni === dni
-);
+console.log("Buscando DNI:", dni);
+
+const paciente = pacientes.find(function(p){
+return p.dni === dni;
+});
+
+console.log("Resultado:", paciente);
 
 if(paciente){
 
 document.getElementById("resultado").innerHTML = `
-
 <div class="ok">
-
 <h2>✅ ASISTENCIA CONFIRMADA</h2>
-
 <br>
-
 <p><b>Paciente:</b> ${paciente.nombre}</p>
-
 <p><b>DNI:</b> ${paciente.dni}</p>
-
 <p><b>Fecha:</b> ${paciente.fecha}</p>
-
 <p><b>Hora:</b> ${paciente.hora}</p>
-
 <p><b>Sector:</b> ${paciente.sector}</p>
-
 <button
 class="pdf"
 onclick="descargarPDF(
@@ -214,120 +207,17 @@ onclick="descargarPDF(
 )">
 📄 Descargar Constancia
 </button>
-
 </div>
-
 `;
 
 }else{
 
 document.getElementById("resultado").innerHTML = `
-
 <div class="er">
 <h2>❌ No se encontraron registros</h2>
 </div>
-
 `;
 
 }
-
-}
-
-function descargarPDF(
-nombre,
-dni,
-fecha,
-hora,
-sector
-){
-
-const ventana = window.open('', '_blank');
-
-ventana.document.write(`
-
-<html>
-
-<head>
-
-<title>Constancia</title>
-
-<style>
-
-body{
-font-family:Arial;
-padding:40px;
-}
-
-h1{
-color:#2e6ea9;
-}
-
-.caja{
-border:1px solid #ccc;
-padding:30px;
-border-radius:10px;
-margin-top:20px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<img src="LOGO ALLENDE.jpg" style="width:250px;margin-bottom:20px;">
-
-<h1>SANATORIO ALLENDE</h1>
-
-<h2>CONSTANCIA DE ATENCIÓN EN GUARDIA CENTRAL</h2>
-
-<div class="caja">
-
-<p>
-La presente acredita la atención registrada en el sistema de validación del Sanatorio Allende.
-</p>
-
-<p>
-Se deja constancia que:
-</p>
-
-<p>
-<b>${nombre}</b>
-</p>
-
-<p>
-DNI: ${dni}
-</p>
-
-<p>
-Asistió a ${sector}.
-</p>
-
-<p>
-Fecha: ${fecha}
-</p>
-
-<p>
-Hora: ${hora}
-</p>
-
-<p>
-Código:
-VAL-${dni}-${fecha.replaceAll('/','')}
-</p>
-
-</div>
-
-<script>
-window.print();
-</script>
-
-</body>
-
-</html>
-
-`);
-
-ventana.document.close();
 
 }
